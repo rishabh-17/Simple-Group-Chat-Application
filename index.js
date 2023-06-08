@@ -44,7 +44,7 @@ app.get('/', (req, res) => {
         </html>`);
     })
     
-})
+});
 
 app.post('/', (req,res) => {
     console.log(req.body);
