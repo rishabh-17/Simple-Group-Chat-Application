@@ -3,11 +3,8 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const path = require('path');
 const app = express();
-if (typeof localStorage === "undefined" || localStorage === null) {
-    var LocalStorage = require('node-localstorage').LocalStorage;
-    localStorage = new LocalStorage('./scratch');
-  }
-app.use(bodyParser.urlencoded({extended: true}));
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/login', (req, res) => {
     console.log('login')
@@ -27,6 +24,7 @@ app.get('/', (req, res) => {
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="css/main.css">
             <title>Document</title>
         </head>
         <body>
@@ -52,6 +50,11 @@ app.post('/', (req,res) => {
     res.redirect('/');
 
 });
+
+
+app.use((req,res)=>{
+    res.status(404).sendFile(path.join(__dirname, 'views', '404.html'))
+})
 
 
 
